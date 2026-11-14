@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f5f1e9">
+<title>Little by Little — Fitness Journal</title>
+<style>
+:root{--bg:#f5f1e9;--card:#fffdf8;--ink:#343b34;--muted:#7d857b;--sage:#718879;--sage2:#e7eee7;--line:#e7e2d8;--rose:#bd8580}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding:env(safe-area-inset-top) 14px env(safe-area-inset-bottom);font-size:15px}
+main{max-width:760px;margin:auto;padding:18px 0 36px}.top{display:flex;justify-content:space-between;align-items:center;margin:8px 2px 18px}.brand{font-family:Georgia,serif;font-size:26px;letter-spacing:-.6px}.sub{color:var(--muted);font-size:12px;margin-top:3px}.pill{background:var(--sage2);color:#536b59;border-radius:20px;padding:7px 11px;font-size:11px;font-weight:700}
+h2{font-family:Georgia,serif;font-size:22px;font-weight:500;margin:0 0 5px}.intro{color:var(--muted);font-size:13px;margin:0 0 16px}.card{background:var(--card);border:1px solid var(--line);border-radius:19px;padding:17px;margin:12px 0;box-shadow:0 3px 12px #4b49350a}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.stat{background:#f7f5ef;border-radius:14px;padding:13px}.stat small{display:block;color:var(--muted);font-size:11px}.stat strong{display:block;font-size:23px;margin-top:5px;font-weight:650}.stat em{font-size:11px;color:var(--muted);font-style:normal}
+label{display:block;font-size:12px;font-weight:650;color:#59645a;margin:12px 0 5px}input,select,textarea{width:100%;border:1px solid var(--line);background:#fffefa;border-radius:11px;padding:11px 12px;color:var(--ink);font:inherit;font-size:14px;outline:none}textarea{min-height:72px;resize:vertical}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.btn{border:0;border-radius:12px;background:var(--sage);color:white;padding:12px 15px;font-weight:700;font-size:14px;width:100%;margin-top:13px}.btn.secondary{background:var(--sage2);color:#4d6553}.btn.ghost{background:#f1eee7;color:#5d655c}.meal{display:grid;grid-template-columns:1fr 90px;gap:8px;margin:8px 0}.meal input{min-width:0}.section-title{font-weight:700;font-size:14px;margin:4px 0 10px}.hint{font-size:11px;color:var(--muted);line-height:1.5}.tabs{display:flex;gap:7px;overflow:auto;padding:2px 0 9px}.tab{white-space:nowrap;border:1px solid var(--line);background:#fffdf8;color:#667064;border-radius:20px;padding:9px 13px;font-size:12px}.tab.active{background:var(--sage);color:white;border-color:var(--sage)}.hidden{display:none}.entry{border-top:1px solid var(--line);padding:12px 0}.entry:first-child{border-top:0}.entry strong{font-size:13px}.entry p{margin:5px 0;color:var(--muted);font-size:12px;line-height:1.5}.feedback{background:#f2f5ef;border-radius:14px;padding:14px;white-space:pre-wrap;font-size:13px;line-height:1.6}.footer{text-align:center;color:var(--muted);font-size:11px;padding:18px}.progress{height:8px;border-radius:10px;background:#e9e6de;overflow:hidden;margin-top:9px}.progress span{display:block;height:100%;background:var(--sage);width:0}
+</style>
+</head>
+<body><main>
+<header class="top"><div><div class="brand">Little by Little 🌿</div><div class="sub">Your personal fitness journal</div></div><div class="pill">GENTLE PROGRESS</div></header>
+<div class="tabs">
+<button class="tab active" data-tab="today">Today</button><button class="tab" data-tab="workout">Workout plan</button><button class="tab" data-tab="history">History</button><button class="tab" data-tab="coach">Coach's Corner</button>
+</div>
+<section id="today">
+<h2>A little progress counts.</h2><p class="intro" id="dateLine"></p>
+<div class="grid">
+<div class="stat"><small>Calories logged</small><strong id="calTotal">0</strong><em>of 1,750 kcal guide</em><div class="progress"><span id="calBar"></span></div></div>
+<div class="stat"><small>Protein estimate</small><strong id="proteinTotal">—</strong><em>Optional in this simple tracker</em></div>
+</div>
+<div class="card">
+<div class="section-title">Food diary</div>
+<p class="hint">Add meals and your estimated calories. Estimates are guides, not exact measurements.</p>
+<div id="meals">
+<div class="meal"><input class="food" placeholder="Breakfast — e.g. 2 eggs + toast"><input class="kcal" type="number" min="0" placeholder="kcal"></div>
+<div class="meal"><input class="food" placeholder="Lunch"><input class="kcal" type="number" min="0" placeholder="kcal"></div>
+<div class="meal"><input class="food" placeholder="Dinner"><input class="kcal" type="number" min="0" placeholder="kcal"></div>
+<div class="meal"><input class="food" placeholder="Snacks / drinks"><input class="kcal" type="number" min="0" placeholder="kcal"></div>
+</div>
+<button class="btn secondary" id="addMeal">+ Add another item</button>
+<div class="row"><div><label for="protein">Protein (optional, grams)</label><input id="protein" type="number" min="0" placeholder="e.g. 92"></div><div><label for="water">Water (glasses)</label><input id="water" type="number" min="0" placeholder="e.g. 7"></div></div>
+</div>
+<div class="card">
+<div class="section-title">Movement & check-in</div>
+<div class="row"><div><label for="steps">Steps</label><input id="steps" type="number" min="0" placeholder="e.g. 8000"></div><div><label for="weight">Weight (kg, optional)</label><input id="weight" type="number" min="0" step=".1" placeholder="e.g. 85.0"></div></div>
+<label for="workoutDone">Workout / activity</label><input id="workoutDone" placeholder="e.g. Gym A, 25-min walk, rest day">
+<div class="row"><div><label for="mood">Mood today</label><select id="mood"><option value="">Choose</option><option>😊 Good</option><option>🙂 Okay</option><option>😐 Neutral</option><option>😔 Low</option><option>😣 Stressed</option></select></div><div><label for="hunger">Hunger</label><select id="hunger"><option value="">Choose</option><option>Low</option><option>Comfortable</option><option>Quite hungry</option><option>Very hungry</option></select></div></div>
+<label for="energy">Energy</label><select id="energy"><option value="">Choose</option><option>High</option><option>Moderate</option><option>Low</option><option>Exhausted</option></select>
+<label for="notes">Anything worth noting?</label><textarea id="notes" placeholder="Cravings, period, busy school day, wins, how you felt..."></textarea>
+<button class="btn" id="save">Save today's progress</button>
+<button class="btn secondary" id="report">Generate report for Cove</button>
+<p class="hint">The report is copied so you can paste it into our chat for your daily feedback.</p>
+</div>
+</section>
+<section id="workout" class="hidden">
+<h2>Your beginner plan</h2><p class="intro">Apartment gym · after school · start gently. Rest between sets and choose a weight you can control.</p>
+<div class="card"><div class="section-title">Monday — Gym A</div><p class="hint">5–7 min easy treadmill warm-up</p><p>• Leg press — 2 × 10<br>• Lat pulldown — 2 × 10<br>• Chest press — 2 × 10<br>• Seated leg curl — 2 × 10<br>• Abdominal crunch machine — 1–2 × 10</p><p class="hint">Rest 60–90 seconds. Ask gym staff to show you machine setup.</p></div>
+<div class="card"><div class="section-title">Thursday — Gym B</div><p>• Seated cable row — 2 × 10<br>• Leg extension — 2 × 10 (light)<br>• Chest press — 2 × 10<br>• Hip abduction — 2 × 12<br>• Standing calf raises — 2 × 12</p><p class="hint">Finish with 5–10 minutes of comfortable walking.</p></div>
+<div class="card"><div class="section-title">Other days</div><p>• Tuesday & Friday: 20–30 minute brisk walk<br>• Saturday: chair squats 2×8, wall push-ups 2×8, glute bridges 2×10, bird dogs 2×8/side<br>• Wednesday & Sunday: recovery / rest</p><p class="hint">A busy or tiring school day can be a rest day. Stop if you feel sharp pain, dizziness or unusual breathlessness.</p></div>
+</section>
+<section id="history" class="hidden"><h2>Your journey</h2><p class="intro">Your saved daily entries on this device.</p><div class="card" id="historyList"><p class="hint">Your saved entries will appear here.</p></div></section>
+<section id="coach" class="hidden"><h2>Coach's Corner 💚</h2><p class="intro">Save the feedback you receive from Cove, and revisit it whenever you need a reminder.</p><div class="card"><label for="coachText">Today's coaching feedback</label><textarea id="coachText" placeholder="Paste your daily feedback here..."></textarea><button class="btn" id="saveCoach">Save feedback</button></div><div class="card" id="coachHistory"><p class="hint">Your saved coaching notes will appear here.</p></div></section>
+<div class="footer">Little by Little · Sustainable habits over perfection</div>
+</main>
+<script>
+const $=id=>document.getElementById(id), today=()=>new Date().toISOString().slice(0,10);
+$('dateLine').textContent=new Date().toLocaleDateString(undefined,{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+let entries=JSON.parse(localStorage.getItem('lbl_entries')||'{}'), coach=JSON.parse(localStorage.getItem('lbl_coach')||'[]');
+function collect(){let meals=[...document.querySelectorAll('.meal')].map(x=>({food:x.querySelector('.food').value.trim(),kcal:Number(x.querySelector('.kcal').value)||0})).filter(x=>x.food||x.kcal);return {date:today(),meals,calories:meals.reduce((s,x)=>s+x.kcal,0),protein:$('protein').value,water:$('water').value,steps:$('steps').value,weight:$('weight').value,workout:$('workoutDone').value,mood:$('mood').value,hunger:$('hunger').value,energy:$('energy').value,notes:$('notes').value}}
+function render(){let e=entries[today()]||{meals:[]};$('calTotal').textContent=e.calories||0;$('proteinTotal').textContent=e.protein?e.protein+' g':'—';$('calBar').style.width=Math.min(100,(e.calories||0)/1750*100)+'%';$('historyList').innerHTML=Object.values(entries).sort((a,b)=>b.date.localeCompare(a.date)).map(e=>`<div class="entry"><strong>${e.date} · ${e.calories||0} kcal</strong><p>${e.workout||'No activity note'} · ${e.steps||'—'} steps · ${e.weight||'—'} kg<br>${e.mood||'Mood not logged'} · Hunger: ${e.hunger||'—'} · Energy: ${e.energy||'—'}</p></div>`).join('')||'<p class="hint">Your saved entries will appear here.</p>';$('coachHistory').innerHTML=coach.map(x=>`<div class="entry"><strong>${x.date}</strong><p>${x.text.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])).replace(/\n/g,'<br>')}</p></div>`).join('')||'<p class="hint">Your saved coaching notes will appear here.</p>'}
+function loadToday(){let e=entries[today()];if(!e)return;document.querySelectorAll('.meal').forEach((el,i)=>{let m=e.meals[i];if(m){el.querySelector('.food').value=m.food;el.querySelector('.kcal').value=m.kcal||''}});for(let k of ['protein','water','steps','weight','workoutDone','mood','hunger','energy','notes'])$(k).value=e[k]||''}
+$('addMeal').onclick=()=>{let d=document.createElement('div');d.className='meal';d.innerHTML='<input class="food" placeholder="Food or drink"><input class="kcal" type="number" min="0" placeholder="kcal">';$('meals').append(d)};
+$('save').onclick=()=>{entries[today()]=collect();localStorage.setItem('lbl_entries',JSON.stringify(entries));render();alert("Saved on this device. You're showing up for yourself — that counts.");};
+$('report').onclick=()=>{let e=collect();let r=`LITTLE BY LITTLE — DAILY CHECK-IN\nDate: ${e.date}\nFood: ${e.meals.map(m=>`${m.food||'Item'} (${m.kcal} kcal)`).join('; ')||'Not logged'}\nEstimated calories: ${e.calories} kcal (guide: 1,750; flexible)\nProtein: ${e.protein||'Not logged'} g\nWater: ${e.water||'Not logged'} glasses\nSteps: ${e.steps||'Not logged'}\nWeight: ${e.weight||'Not logged'} kg\nWorkout/activity: ${e.workout||'Not logged'}\nMood: ${e.mood||'Not logged'}\nHunger: ${e.hunger||'Not logged'}\nEnergy: ${e.energy||'Not logged'}\nNotes: ${e.notes||'None'}\nPlease give me balanced, encouraging, practical feedback and one focus for tomorrow.`;if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(r).then(()=>alert('Daily report copied! Paste it into your chat with Cove.')).catch(()=>prompt('Copy your daily report:',r))}else prompt('Copy your daily report:',r)};
+$('saveCoach').onclick=()=>{let t=$('coachText').value.trim();if(!t)return;coach.unshift({date:today(),text:t});localStorage.setItem('lbl_coach',JSON.stringify(coach));$('coachText').value='';render();alert('Feedback saved.');};
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===b));['today','workout','history','coach'].forEach(id=>$(id).classList.toggle('hidden',id!==b.dataset.tab));});
+loadToday();render();
+</script></body></html>
